@@ -46,14 +46,17 @@ func backspaceCompare(_ s: String, _ t: String) -> Bool {
         var nextSElement = getNextValidCharacter(array: sArray, index: &sPointer)
         var nextTElement = getNextValidCharacter(array: tArray, index: &tPointer)
 
+        // If both pointers are `-1`, then we have reached out the end of both strings.
         if nextSElement < 0 && nextTElement < 0 {
             return true
         }
 
+        // If one of the strings is `-1` and other is not, than thet are not equal.
         if nextSElement < 0 || nextTElement < 0 {
             return false
         }
 
+        // If valid chars are not equal, then the strings are not the same.
         if sArray[nextSElement] != tArray[nextTElement] {
             return false
         }
