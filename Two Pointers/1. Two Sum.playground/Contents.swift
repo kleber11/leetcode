@@ -42,7 +42,37 @@ nums = [3, 3], target = 6
 Can you find a solution with a **time complexity better than O(n²)**?
 */
 
+// In this case we return indicies of sorted array.
 func twoSum(_ nums: [Int], _ target: Int) -> [Int] {
-
+    var p1 = 0
+    var p2 = nums.count - 1
+    var sorted = nums.sorted()
+    while p1 != p2 {
+        if sorted[p1] + sorted[p2] == target {
+            return [p1, p2]
+        } else if sorted[p1] + sorted[p2] < target {
+            p1 += 1
+        } else {
+            p2 -= 1
+        }
+    }
     return []
 }
+
+print(twoSum([3,2,4], 6))
+
+// The follow up would be to return indicies of original array with optimal time and space complexity (O(N logN)).
+// The approach is to use HashMap (Dictionary)
+func twoSum2(_ nums: [Int], _ target: Int) -> [Int] {
+    var result: [Int: Int] = [:]
+    for (index, number) in nums.enumerated() {
+        let numberToFind = target - number
+        if let result = result[numberToFind] {
+            return [index, result]
+        } else {
+            result[number] = index
+        }
+    }
+    return []
+}
+print(twoSum2([3,2,4], 6))
