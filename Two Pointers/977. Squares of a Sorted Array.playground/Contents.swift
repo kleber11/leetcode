@@ -29,5 +29,25 @@
 */
 
 func sortedSquares(_ nums: [Int]) -> [Int] {
-    return []
+    var lPointer = 0
+    var rPointer = nums.count - 1
+    var copy = Array(repeating: 0, count: nums.count)
+    var index = nums.count - 1
+
+    while lPointer <= rPointer {
+        let lSquare = nums[lPointer] * nums[lPointer]
+        let rSquare = nums[rPointer] * nums[rPointer]
+
+        if lSquare > rSquare {
+            copy[index] = lSquare
+            lPointer += 1
+        } else {
+            copy[index] = rSquare
+            rPointer -= 1
+        }
+
+        index -= 1
+    }
+    return copy
 }
+sortedSquares([-44, -1, 0, 3, 10])
