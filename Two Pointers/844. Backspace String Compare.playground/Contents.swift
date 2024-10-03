@@ -83,4 +83,4 @@ func getNextValidCharacter(array: [Character], index: inout Int) -> Int {
     return index
 }
 
-backspaceCompare("a#c", "b")
+backspaceCompare("a#b", "b")
