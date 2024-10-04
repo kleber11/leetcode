@@ -67,7 +67,7 @@ func threeSum(_ nums: [Int]) -> [[Int]] {
                 }
 
                 while leftP < rightP && nums[rightP] == nums[rightP - 1] {
-                    rightP += 1
+                    rightP -= 1
                 }
 
                 leftP += 1
@@ -83,4 +83,4 @@ func threeSum(_ nums: [Int]) -> [[Int]] {
     return result
 }
 
-print(threeSum([-1, 0, 1, 2, -1, -4]))
+print(threeSum([-2,0,0,2,2]))
