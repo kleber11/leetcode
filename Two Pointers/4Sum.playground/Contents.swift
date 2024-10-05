@@ -82,5 +82,3 @@ func fourSum(_ nums: [Int], _ target: Int) -> [[Int]] {
     }
     return result
 }
-
-print(fourSum([1,0,-1,0,-2,2], 0))
