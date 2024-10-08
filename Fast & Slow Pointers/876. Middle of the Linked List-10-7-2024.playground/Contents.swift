@@ -30,7 +30,6 @@ public class ListNode {
     public init(_ val: Int, _ next: ListNode?) { self.val = val; self.next = next; }
 }
 
-
 func middleNode(_ head: ListNode?) -> ListNode? {
     // Define `fast` and `slow` pointers.
     var slowP = head
