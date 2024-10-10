@@ -34,5 +34,24 @@ public class ListNode {
 }
 
 func removeElements(_ head: ListNode?, _ val: Int) -> ListNode? {
-    return head
+    // Create a dummy node with any value, does not matter
+    var prev: ListNode = ListNode(0, head)
+    // Create `current` to iterate through in case
+    // if first element in list is the one should be removed.
+    var current: ListNode? = prev
+    // Iterate through list
+    while current?.next != nil {
+        if current?.next?.val == val {
+            // If it is element to be removed, skip it
+            current?.next = current?.next?.next
+        } else {
+            // Move current pointers to next `non-removable` element
+            current = current?.next
+        }
+    }
+    // Return new head's next value (first is dummy).
+    return prev.next
 }
+
+var list = ListNode(71, .init(7, .init(7, .init(7, .init(7, .init(7, .init(7)))))))
+removeElements(list, 7)

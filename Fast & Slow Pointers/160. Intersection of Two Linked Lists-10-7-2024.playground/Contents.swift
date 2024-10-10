@@ -64,6 +64,12 @@ public class ListNode {
 }
 
 func getIntersectionNode(_ headA: ListNode?, _ headB: ListNode?) -> ListNode? {
+    var p1 = headA
+    var p2 = headB
 
-    return headA
+    while p1 !== p2 {
+        p1 = p1 == nil ? headB : p1?.next
+        p2 = p2 == nil ? headA : p2?.next
+    }
+    return p1
 }
