@@ -38,5 +38,26 @@ public class ListNode {
 }
 
 func removeNthFromEnd(_ head: ListNode?, _ n: Int) -> ListNode? {
-    return head
+    // Define `dummy` node to handle edge cases
+    // where head node is supposed to be removed.
+    let dummy = ListNode(0, head)
+    var slow = dummy
+    var fast = dummy
+
+    // Move fast `n` steps ahead.
+    for _ in 0..<n {
+        fast = fast.next!
+    }
+
+    // When `fast` reaches end, slow will be one step behind the node to be removed.
+    while fast.next != nil {
+        slow = slow.next!
+        fast = fast.next!
+    }
+
+    // Remove node
+    slow.next = slow.next?.next
+
+    // Return head
+    return dummy.next
 }
