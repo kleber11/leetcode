@@ -37,5 +37,45 @@ public class ListNode {
 }
 
 func reorderList(_ head: ListNode?) {
+    guard head != nil, head?.next != nil else { return }
 
+    // Define fast and slow pointers
+    var fastP = head
+    var slowP = head
+    // Find middle of the list
+    while fastP != nil, fastP?.next != nil {
+        fastP = fastP?.next?.next
+        slowP = slowP?.next
+    }
+
+    // Reverse second half
+    var secondHalfReversed = reverseList(slowP)
+    // Reset slow pointer to the beginning
+    slowP = head
+
+    // Replace pointers
+    while slowP != nil {
+        var tmp1 = slowP?.next
+        var tmp2 = secondHalfReversed?.next
+
+        slowP?.next = secondHalfReversed
+        secondHalfReversed?.next = tmp1
+        slowP = tmp1
+        secondHalfReversed = tmp2
+    }
 }
+
+func reverseList(_ node: ListNode?) -> ListNode? {
+    var current = node
+    var prev: ListNode? = nil
+    while current != nil {
+        let next = current?.next
+        current?.next = prev
+        prev = current
+        current = next
+    }
+    return prev
+}
+
+var list = ListNode(1, .init(2, .init(3)))
+reverseList(list)
