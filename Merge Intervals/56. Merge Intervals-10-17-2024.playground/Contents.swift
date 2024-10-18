@@ -28,6 +28,46 @@
  - Intervals
  */
 
-func merge(_ intervals: [[Int]]) -> [[Int]] {
-    return []
+/// Base class just for convenience
+class Interval {
+
+    var start: Int
+    var end: Int
+
+    init(_ start: Int, _ end: Int) {
+        self.start = start
+        self.end = end
+    }
 }
+
+/// To efficiently solve this problem, there are few steps you have to follow:
+///  - **Step 1:** –– Sort the intervals by start time. This allows you to iterate through all intervals in order and merge them if they overlap.
+///  - **Step 2:** –– Iterate through the sorted list and keep merging them if the start time of current interval is less than or equal to end of the previous (merged) interval.
+///  - **Step 3:** –– Add non-overlapping intervals.
+
+func merge(_ intervals: [Interval]) -> [Interval] {
+    // Make sure `intervals` is not empty array.
+    guard intervals.count > 0 else { return [] }
+    // Define properties
+    var result: [Interval] = []
+    var intervals = intervals.sorted(by: { $0.start < $1.start }) // Sort array by first (start) element
+
+    // Iterate through intervals
+    for interval in intervals {
+        // On first iteration `result` will be empty. So, you have to add first interval.
+        // On next iterations check if last added interval ends before current starts.
+        if result.isEmpty || result.last!.end < interval.start {
+            result.append(interval) // No overlaps, add `interval` to array.
+        } else {
+            result[result.count - 1].end = max(interval.end, result.last!.end) // Overlap detected, merge the interval by updating `end` value.
+        }
+    }
+
+    // Return result
+    return result
+}
+
+let first = Interval(1, 4)
+let second = Interval(0, 4)
+merge([first, second])
+
