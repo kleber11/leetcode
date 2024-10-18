@@ -28,8 +28,36 @@
  - Intervals
  */
 
-func canAttendMeetings(_ intervals: [[Int]]) -> Bool {
-    // Base function for determining if a person can attend all meetings
-    // Logic to be implemented here
-    return false
+/// Base class just for convenience
+class Interval {
+
+    var start: Int
+    var end: Int
+
+    init(_ start: Int, _ end: Int) {
+        self.start = start
+        self.end = end
+    }
 }
+
+func canAttendMeetings(_ intervals: [Interval]) -> Bool {
+    // If there is only one class, person definitely can attend.
+    guard intervals.count > 1 else { return true }
+
+    // Sort meetings by start time.
+    var sortedMeetings = intervals.sorted(by: { $0.start < $1.start })
+
+    // Iterate through meetings and detect overlaps.
+    for index in 1..<sortedMeetings.count {
+        if sortedMeetings[index].start < sortedMeetings[index - 1].end {
+            return false
+        }
+    }
+    return true
+}
+
+let intervals: [Interval] = [.init(0, 30), .init(5, 10), .init(15, 20)]
+canAttendMeetings(intervals)
+
+let intervalsSecond: [Interval] = [.init(7, 10), .init(2, 4)]
+canAttendMeetings(intervalsSecond)

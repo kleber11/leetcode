@@ -32,6 +32,18 @@
  - Intervals
  */
 
+/// Base class just for convenience
+class Interval {
+
+    var start: Int
+    var end: Int
+
+    init(_ start: Int, _ end: Int) {
+        self.start = start
+        self.end = end
+    }
+}
+
 func insert(_ intervals: [[Int]], _ newInterval: [Int]) -> [[Int]] {
     return []
 }
