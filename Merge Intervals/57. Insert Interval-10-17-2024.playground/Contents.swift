@@ -44,6 +44,35 @@ class Interval {
     }
 }
 
-func insert(_ intervals: [[Int]], _ newInterval: [Int]) -> [[Int]] {
-    return []
+func insert(_ intervals: [Interval], _ newInterval: Interval) -> [Interval] {
+    // Define properties
+    var i = 0
+    var n = intervals.count
+    var result: [Interval] = []
+
+    // Step 1: Add all intervals that end before new interval starts
+    while i < n, intervals[i].end < newInterval.start {
+        result.append(intervals[i])
+        i += 1
+    }
+
+    // Step 2: Merge overlapping intervals
+    var newInterval = newInterval
+    while i < n, intervals[i].start <= newInterval.end {
+        newInterval.start = min(intervals[i].start, newInterval.start)
+        newInterval.end = max(intervals[i].end, newInterval.end)
+        i += 1
+    }
+    result.append(newInterval)
+
+    // Step 3: Add rest of intervals
+    while i < n {
+        result.append(intervals[i])
+        i += 1
+    }
+
+    return result
 }
+
+insert([.init(1, 3), .init(6, 9)], .init(2, 5))
+insert([.init(1, 2), .init(3, 5), .init(6, 7), .init(8, 10), .init(12, 16)], .init(4, 8))
