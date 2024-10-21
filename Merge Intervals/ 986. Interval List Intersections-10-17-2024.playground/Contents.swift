@@ -30,9 +30,54 @@
  - Intervals
  */
 
-func intervalIntersection(_ firstList: [[Int]], _ secondList: [[Int]]) -> [[Int]] {
-    // Base function to return the intersection of two interval lists
-    // Logic to be implemented here
-    return []
+// Base class
+class Interval {
+
+    var start: Int
+    var end: Int
+
+    init(_ start: Int, _ end: Int) {
+        self.start = start
+        self.end = end
+    }
 }
 
+func intervalIntersection(_ firstList: [Interval], _ secondList: [Interval]) -> [Interval] {
+    // Make sure both arrays are not empty.
+    guard !firstList.isEmpty else { return secondList }
+    guard !secondList.isEmpty else { return firstList }
+
+    // Define properties
+    var result: [Interval] = []
+    /// Use `Two pointers` approach to iterate throught intervals.
+    var p1 = 0
+    var p2 = 0
+    
+    // Iterate through both lists
+    while p1 < firstList.count, p2 < secondList.count {
+        // Find `max` starting point
+        // and `min` ending point of both intervals
+        var intersection: Interval = .init(
+            max(firstList[p1].start, secondList[p2].start),
+            min(firstList[p1].end, secondList[p2].end)
+        )
+
+        if intersection.start <= intersection.end {
+            result.append(intersection)
+        }
+
+        if firstList[p1].end < secondList[p2].end {
+            p1 += 1
+        } else {
+            p2 += 1
+        }
+    }
+
+    return result
+}
+
+intervalIntersection([.init(1, 3), .init(5, 9)], [.init(4, 8)])
+intervalIntersection([.init(1, 3), .init(5, 6), .init(7, 9)], [.init(2, 5), .init(6, 8)])
+
+// Time complexity: O(n+m), where `n` = firstList.count, `m` = secondList.count, -> O(2n) -> O(n)
+// Space complexity: O(n)

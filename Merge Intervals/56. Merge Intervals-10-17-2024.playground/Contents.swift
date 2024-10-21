@@ -70,4 +70,3 @@ func merge(_ intervals: [Interval]) -> [Interval] {
 let first = Interval(1, 4)
 let second = Interval(0, 4)
 merge([first, second])
-

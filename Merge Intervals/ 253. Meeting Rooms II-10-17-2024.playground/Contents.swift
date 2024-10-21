@@ -29,7 +29,19 @@
  - Intervals
  */
 
-func minMeetingRooms(_ intervals: [[Int]]) -> Int {
+/// Base class just for convenience
+class Interval {
+
+    var start: Int
+    var end: Int
+
+    init(_ start: Int, _ end: Int) {
+        self.start = start
+        self.end = end
+    }
+}
+
+func minMeetingRooms(_ intervals: [Interval]) -> Int {
     // Base function to return the minimum number of conference rooms required
     // Logic to be implemented here
     return 0
