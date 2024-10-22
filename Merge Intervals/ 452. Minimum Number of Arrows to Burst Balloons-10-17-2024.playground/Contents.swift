@@ -37,8 +37,47 @@
  - Sorting
  */
 
-func findMinArrowShots(_ points: [[Int]]) -> Int {
-    // Base function to return the minimum number of arrows needed to burst all balloons
-    // Logic to be implemented here
-    return 0
+/// Base class for convenience
+class Interval {
+
+    /// Starting point
+    var start: Int
+    /// End point
+    var end: Int
+
+    /// Initializer
+    init(_ start: Int, _ end: Int) {
+        self.start = start
+        self.end = end
+    }
 }
+
+func findMinArrowShots(_ points: [Interval]) -> Int {
+    // Make sure points are not empty
+    guard !points.isEmpty else { return 0 }
+
+    // Define properties
+    var result: Int = 1
+    var sortedPoints = points.sorted(by: { $0.end < $1.end }) // Sort array to iterate through intervals
+    var i = 1
+
+    // Iterate through array
+    var savedEndPoint = sortedPoints[0].end
+    while i < sortedPoints.count {
+        if sortedPoints[i].start > savedEndPoint {
+            result += 1
+            savedEndPoint = sortedPoints[i].end
+        }
+        i += 1
+    }
+
+    return result
+}
+
+// [[10,16],[2,8],[1,6],[7,12]]
+findMinArrowShots([
+    .init(10, 16),
+    .init(2, 8),
+    .init(1, 6),
+    .init(7, 12)
+])

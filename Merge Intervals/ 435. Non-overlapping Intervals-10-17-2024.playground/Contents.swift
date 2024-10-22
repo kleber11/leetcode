@@ -35,8 +35,27 @@
  */
 
 func eraseOverlapIntervals(_ intervals: [[Int]]) -> Int {
-    // Base function to return the minimum number of intervals to remove to avoid overlap
-    // Logic to be implemented here
-    return 0
+    // Make sure `intervals` contains enaugh elements.
+    guard intervals.count > 1 else { return 0 }
+    // Define properties
+    var result = 0
+    var sortedIntervals = intervals.sorted(by: { $0[0] < $1[0] }) // Sort intervals by `start` time
+    var end = sortedIntervals[0][1]
+
+    // Iterate through intervals
+    for i in 1..<sortedIntervals.count {
+        if sortedIntervals[i][0] < end {
+            result += 1
+            end = min(sortedIntervals[i][1], end)
+        } else {
+            end = sortedIntervals[i][1]
+        }
+    }
+
+    return result
 }
 
+eraseOverlapIntervals([[1,2],[1,2],[1,2]])
+eraseOverlapIntervals([[1,3], [2,4], [3,5]])
+eraseOverlapIntervals([[1,10], [2,6], [3,5], [7,9]])
+eraseOverlapIntervals([[0,2],[1,3],[2,4],[3,5],[4,6]])
