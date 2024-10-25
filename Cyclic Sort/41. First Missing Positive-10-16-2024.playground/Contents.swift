@@ -53,7 +53,6 @@ func firstMissingPositive(_ nums: [Int]) -> Int {
             i += 1
         }
     }
-    print(nums)
 
     for (index, number) in nums.enumerated() {
         if index + 1 != number {
